@@ -1,0 +1,11 @@
+[package]
+name = "rust_search_cli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.1", features = ["derive"] }
+ctrlc = "3.5.2"
+exitcode = "1.1.2"
+human-panic = "2.0.8"
+is-terminal = "0.4.17"
