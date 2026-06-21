@@ -1,6 +1,6 @@
 use clap::Parser;
-use std::io::{self, IsTerminal, Write};
-use std::fs::{self, DirEntry,File};
+use std::io::{self, IsTerminal};
+use std::fs::{self};
 use std::path::Path;
 
 #[derive(Parser, Debug)]
@@ -14,7 +14,6 @@ struct CliArgs {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     human_panic::setup_panic!();
     ctrlc::set_handler(move || {
-        // TODO Ausgeben der Bisher gefunden paths
         eprintln!("Shutting down the programm while something happend (ctrlc)");
         std::process::exit(130);
     }).expect("Error while setting the ctrlc handler");
@@ -23,7 +22,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut to_check: Vec<String> = Vec::new();
     let stdin = io::stdin();
     if !stdin.is_terminal() {
-        // TODO Lese liste LF getrennt ein über stdin (z.b ls | ...)
         let lines = io::stdin().lines();
         for line in lines {
             to_check.push(line?);
@@ -37,7 +35,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     
-    // TODO Loop as long as somehting is in to_check
     while !to_check.is_empty() {
         let entry = &to_check.pop().unwrap();
         let entry_path = Path::new(&entry);
